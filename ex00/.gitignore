@@ -1,0 +1,23 @@
+/build/
+/log/
+/ex00
+*.o
+*.obj
+*.out
+
+# Logs & generated
+/log/merged.txt
+
+# Editors/IDE
+.vscode/
+.idea/
+*.swp
+*~
+*.bak
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Others
+*.log
