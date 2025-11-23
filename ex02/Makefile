@@ -1,4 +1,4 @@
-NAME := ex00
+NAME := ex02
 SRC_DIR := src
 OBJ_DIR := build
 LOG_DIR := log

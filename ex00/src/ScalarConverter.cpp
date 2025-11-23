@@ -179,10 +179,23 @@ void printDouble(double v) {
 } // unnamed namespace
 
 // ===== ScalarConverter =====
-ScalarConverter::ScalarConverter() {}
-ScalarConverter::ScalarConverter(const ScalarConverter&) {}
-ScalarConverter& ScalarConverter::operator=(const ScalarConverter&) { return *this; }
-ScalarConverter::~ScalarConverter() {}
+ScalarConverter::ScalarConverter() 
+{
+    std::cout << CYAN << "Default constructor called" << RESET << std::endl;
+}
+ScalarConverter::ScalarConverter(const ScalarConverter&)
+{
+    std::cout << CYAN << "Copy constructor called" << RESET << std::endl;
+}
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter&) 
+{
+    std::cout << CYAN << "Copy assignment operator called" << RESET << std::endl;
+    return *this;
+}
+ScalarConverter::~ScalarConverter() 
+{
+    std::cout << CYAN << "Destructor called" << RESET << std::endl;
+}
 
 void ScalarConverter::convert(const std::string& arg) {
     const std::string s = trim(arg);
@@ -281,13 +294,17 @@ void ScalarConverter::convert(const std::string& arg) {
         long lv = std::strtol(s.c_str(), &end, 10);
         bool ok = (end && *end == '\0' && errno == 0);
 
+        // オーバーフロー判定
         if (!ok ||
             lv < static_cast<long>(std::numeric_limits<int>::min()) ||
             lv > static_cast<long>(std::numeric_limits<int>::max())) {
-            std::cout << "char: impossible\n"
-                      << "int: impossible\n"
-                      << "float: impossible\n"
-                      << "double: impossible\n";
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+
+            // double として読み直す
+            double dv = std::strtod(s.c_str(), NULL);
+            printFloat(dv);
+            printDouble(dv);
             return;
         }
 
